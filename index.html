@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>السيرة الذاتية | علي بن عبدالعزيز</title>
+    <style>
+        @import url('https://googleapis.com');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 15px;
+        }
+
+        .cv-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            position: relative;
+        }
+
+        .lang-switch-container {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+        }
+        html[dir="ltr"] .lang-switch-container { left: auto; right: 30px; }
+
+        .lang-btn {
+            background-color: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        header { text-align: center; margin-bottom: 30px; }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            color: #0f172a;
+            font-weight: 800;
+        }
+
+        .title {
+            color: #475569;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto 20px;
+            font-weight: 600;
+        }
+
+        .direct-contact {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .btn-call { background-color: #f8fafc; border: 1px solid #cbd5e1; color: #334155; }
+        .btn-whatsapp { background-color: #e8f5e9; border: 1px solid #a5d6a7; color: #1b5e20; }
+        .btn-email { background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 700;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            color: #0284c7;
+            border-bottom: 3px solid #0284c7;
+            border-radius: 0;
+        }
+
+        .content-section { display: none; animation: fadeIn 0.3s ease forwards; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .card { background-color: #ffffff; border-bottom: 1px solid #f1f5f9; padding: 22px 0; margin-bottom: 10px; }
+        .card h3 { color: #0f172a; font-size: 1.3rem; margin-bottom: 6px; font-weight: 700; }
+        .card .company { font-size: 1.05rem; color: #0284c7; font-weight: 700; margin-bottom: 4px; }
+        .card .date { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; font-weight: 600; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding-top: 10px; }
+        .skill-card { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px; }
+        .skill-card h4 { color: #0f172a; margin-bottom: 6px; font-size: 1.05rem; font-weight: 700; }
+        .skill-card p { color: #475569; font-size: 0.88rem; line-height: 1.5; }
+
+        .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; padding-top: 10px; }
+        .cert-card { background-color: #ffffff; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 8px; }
+        .cert-card h4 { color: #222d3d; font-size: 0.92rem; margin-bottom: 3px; font-weight: 700; }
+        .cert-card p { color: #64748b; font-size: 0.82rem; font-weight: 600; }
+
+        .en-text { display: none; }
+        html[dir="rtl"] .ar-text { display: inline; }
+        html[dir="ltr"] .ar-text { display: none; }
+        html[dir="ltr"] .en-text { display: inline; }
+        html[dir="ltr"] div.en-text, html[dir="ltr"] p.en-text, html[dir="ltr"] h4.en-text { display: block; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .cv-container { padding: 30px 15px; border-radius: 12px; }
+            .tab-btn { padding: 6px 10px; font-size: 0.85rem; }
+            .action-link { padding: 6px 12px; font-size: 0.78rem; }
+            .lang-switch-container { top: 15px; left: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <div class="lang-switch-container">
+            <button class="lang-btn" onclick="toggleLanguage()">English</button>
+        </div>
+
+        <header>
+            <h1>
+                <span class="ar-text">علي بن عبدالعزيز</span>
+                <span class="en-text">Ali Bin Abdulaziz</span>
+            </h1>
+            <div class="title">
+                <span class="ar-text">مدير تنفيذي ومستشار موارد بشرية | خبير تأسيس المنظومات الإدارية وإدارة العمليات والتشغيل الشامل</span>
+                <span class="en-text">Executive Director & HR Consultant | Expert in Setting Up Administrative Systems & Total Operations Management</span>
+            </div>
+            
+            <div class="direct-contact">
+                <a href="tel:0533743380" class="action-link btn-call">
+                    <span>📞</span> <span class="ar-text">إتصال هاتفي</span><span class="en-text">Call Now</span>
+                </a>
+                <a href="whatsapp://send?phone=966533743380" class="action-link btn-whatsapp">
+                    <span>💬</span> <span class="ar-text">واتساب مباشر</span><span class="en-text">WhatsApp</span>
+                </a>
+                <a href="mailto:LIOQIO10@://gmail.com" class="action-link btn-email">
+                    <span>📧</span> <span class="ar-text">البريد الإلكتروني</span><span class="en-text">Email</span>
+                </a>
+            </div>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="openSection(event, 'about')">
+                <span class="ar-text">الملخص التنفيذي</span><span class="en-text">Executive Summary</span>
+            </button>
+            <button class="tab-btn" onclick="openSection(event, 'experience')">
+                <span class="ar-text"> الخبرات والمنجزات</span><span class="en-text">Experience</span>
+            </button>
+            <button class="tab-btn" onclick="openSection(event, 'skills')">
+                <span class="ar-text">المنظومة والمهارات</span><span class="en-text">Skills</span>
+            </button>
+            <button class="tab-btn" onclick="openSection(event, 'certs')">
+                <span class="ar-text">التطوير المهني والتعليم</span><span class="en-text">Education & Development</span>
+            </button>
+        </nav>
+
+        <div id="about" class="content-section active">
+            <div class="card" style="border: none;">
+                <p style="line-height: 1.8; color: #334155; font-size: 1.05rem; text-align: right;">
+                    <span class="ar-text">مدير ومستشار موارد بشرية يجمع بين الفكر الاستراتيجي في بناء الأنظمة والشركات من الصفر، والتمكن الميداني الكامل من إدارة العمليات التشغيلية واليومية. أمتلك خبرة واسعة في القيادة التنفيذية، إدارة وتوجيه الموظفين، هيكلة الأجور ومسيرات الرواتب، وجدولة الإجازات، مع تحقيق أتمتة رقمية كاملة والامتثال التام للأنظمة السعودية بنسبة 100%.</span>
+                    <span class="en-text" style="text-align: left;">An HR Director and Consultant who blends strategic vision in building administrative systems and companies from scratch with full field mastery of daily operational management. Possess extensive experience in executive leadership, employee guidance, payroll structures, and leave scheduling, achieving total digital automation and 100% full compliance with Saudi regulations.</span>
+                </p>
+            </div>
+        </div>
+        <div id="experience" class="content-section">
+            <div class="card">
+                <h3>
+                    <span class="ar-text">مؤسس ومستشار موارد بشرية وتطوير تشغيلي</span>
+                    <span class="en-text">Founder & HR Consultant | Operations Development</span>
+                </h3>
+                <div class="company"><span class="ar-text">شركة إثراء العقارية</span><span class="en-text">Ithra Real Estate Company</span></div>
+                <div class="date"><span class="ar-text">يونيو 2025 – حتى الآن</span><span class="en-text">June 2025 – Present</span></div>
+                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <span class="ar-text">تأسيس إدارة الموارد البشرية من الصفر وتصميم دورتها المستندية وهياكلها التنظيمية لملائمة قطاع العقار. لا يقتصر دوري على التأسيس بل يتعداه للتشغيل اليومي؛ حيث أدير شؤون الموظفين بشكل مباشر، وأشرف على معالجة مسيرات الرواتب، وجدولة ومتابعة الإجازات، وحل المعضلات العمالية، مع ربط المنشأة تقنياً بالمنصات الحكومية لضمان تدفق العمل بسلاسة ونظام.</span>
+                    <span class="en-text">Established the HR department from scratch, designing its documentation workflow and organizational structures tailored to the real estate sector. Role extends beyond setup to daily operations: directly managing personnel affairs, overseeing payroll processing, scheduling leaves, and resolving labor issues while digitally integrating the entity with government platforms to ensure smooth and institutional workflows from day one.</span>
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>
+                    <span class="ar-text">مدير الموارد البشرية (مكلف بمهام المدير التنفيذي)</span>
+                    <span class="en-text">HR Director (Acting Executive Director)</span>
+                </h3>
+                <div class="company"><span class="ar-text">شركة دنالي للتجارة</span><span class="en-text">Denali Trading Company</span></div>
+                <div class="date"><span class="ar-text">نوفمبر 2021 – حتى الآن</span><span class="en-text">November 2021 – Present</span></div>
+                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <span class="ar-text">تولي القيادة التنفيذية والتشغيلية الشاملة وبناء قاعدة بيانات المنشأة وأنظمتها من الصفر. إدارة كافة العمليات التشغيلية اليومية للموظفين، وتطوير البنية التحتية لحسابات الرواتب والأجور ونظام الإجازات وحضور وانصراف الكادر. <strong>النجاح الكبير في قيادة ملف التوطين الذكي؛ حيث تم تعديل النسب بذكاء لرفع كفاءة التوظيف من موظف سعودي مقابل كل 5 مقيمين إلى موظف سعودي مقابل كل 13 مقيماً، مما وفر ميزانيات ضخمة جداً للمنشأة</strong>، مع المسؤولية الكاملة عن استخراج التراخيص الصناعية وتراخيص هيئة النقل.</span>
+                    <span class="en-text">Assumed total executive and operational leadership, building the corporate database and administrative systems from scratch. Managed all daily employee operational workflows, and developed the infrastructure for payroll processing and leave tracking. <strong>Highly successful in leading the smart Saudization file, restructuring ratios to improve efficiency from 1 Saudi per 5 expats to 1 Saudi per 13 expats, saving massive corporate budgets</strong>, alongside managing industrial and transport authority licenses.</span>
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>
+                    <span class="ar-text">أخصائي مبيعات</span>
+                    <span class="en-text">Sales Specialist</span>
+                </h3>
+                <div class="company"><span class="ar-text">شركة الغزالي للساعات</span><span class="en-text">Al-Ghazali Watches Company</span></div>
+                <div class="date"><span class="ar-text">يناير 2021 – سبتمبر 2023</span><span class="en-text">January 2021 – September 2023</span></div>
+                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <span class="ar-text">صقل مهارات فهم وتحليل متطلبات العملاء والعمل كمستشار مبيعات للمنتجات والماركات الفاخرة، وتطوير أساليب إقناع واحترافية أسهمت في بناء ورفع موثوقية وولاء العميل.</span>
+                    <span class="en-text">Honed skills in understanding and analyzing luxury consumer requirements. Acted as a sales consultant for high-end brands, developing professional persuasion techniques that built deep customer trust and brand loyalty.</span>
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>
+                    <span class="ar-text">مدير فرع ومصمم عطور</span>
+                    <span class="en-text">Branch Manager & Perfume Designer</span>
+                </h3>
+                <div class="company"><span class="ar-text">الشويش للعود</span><span class="en-text">Al-Shuwaysh for Oud</span></div>
+                <div class="date"><span class="ar-text">مارس 2018 – نوفمبر 2021</span><span class="en-text">March 2018 – November 2021</span></div>
+                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
+                    <span class="ar-text">تولي الإدارة الشاملة للفرع والمسؤولية الكاملة عن العمليات البيعية والتشغيلية والميدانية. تطوير الشغف والخبرة في تركيب وتصميم العطور الخاصة، وتمثيل العلامة التجارية في المعارض المحلية والدولية الكبرى، وبناء شبكة علاقات قوية مع العملاء.</span>
+                    <span class="en-text">Managed full branch operations and sales performance. Deepened expertise in custom perfume design and oil blending, represented the brand in major local and international exhibitions, and established a strong premium client network.</span>
+                </p>
+            </div>
+        </div>
+        <div id="skills" class="content-section">
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4><span class="ar-text">القيادة والتأسيس الهيكلي</span><span class="en-text">Leadership & Setup</span></h4>
+                    <p><span class="ar-text">تأسيس إدارات الموارد البشرية من الصفر، رسم الهياكل التنظيمية، والتخطيط الاستراتيجي للمنشآت.</span><span class="en-text">Establishing HR departments from scratch, organizational charting, and corporate strategic planning.</span></p>
+                </div>
+                <div class="skill-card">
+                    <h4><span class="ar-text">إدارة العمليات والتشغيل (HR Ops)</span><span class="en-text">HR Operations Management</span></h4>
+                    <p><span class="ar-text">إدارة شؤون الموظفين اليومية، معالجة وهيكلة مسيرات الرواتب والأجور، تنظيم الإجازات والدوام والتقارير.</span><span class="en-text">Daily personnel affairs, structuring payroll processes, managing leaves, attendance, and periodic reporting.</span></p>
+                </div>
+                <div class="skill-card">
+                    <h4><span class="ar-text">هندسة التوطين والامتثال</span><span class="en-text">Saudization & Compliance</span></h4>
+                    <p><span class="ar-text">خبير في رفع نسب التوطين (نطاقات) بفعالية وتقليص تكاليف الاستقدام والتأمينات بما يطابق نظام العمل السعودي 100%.</span><span class="en-text">Expert in effectively optimizing Saudization ratios (Nitaqat) and cutting recruitment/insurance costs aligned 100% with Saudi labor laws.</span></p>
+                </div>
+                <div class="skill-card">
+                    <h4><span class="ar-text">التحول والربط الرقمي الحكومي</span><span class="en-text">Digital Government Portals</span></h4>
+                    <p><span class="ar-text">تمكن احترافي ممتد لكافة الأنظمة والمنصات (قوى، مدد، أبشر أعمال، هيئة النقل، التراخيص الصناعية) وأتمتة الإجراءات.</span><span class="en-text">Professional mastery of all core platforms (Qiwa, Mudad, Absher Business, TGA, Industrial Licensing) and workflow automation.</span></p>
+                </div>
+                <div class="skill-card">
+                    <h4><span class="ar-text">التميز الإداري وصياغة السياسات</span><span class="en-text">Policy Formulation & Admin Excellence</span></h4>
+                    <p><span class="ar-text">صياغة اللوائح الداخلية والخطابات الرسمية الحساسة وتصميم النماذج الإدارية المتكاملة بدقة مستندية عالية.</span><span class="en-text">Drafting internal regulations, high-stakes official correspondence, and creating integrated administrative templates.</span></p>
+                </div>
+                <div class="skill-card">
+                    <h4><span class="ar-text">المبيعات وإدارة النخبة والعطور</span><span class="en-text">Premium Sales & Perfume Design</span></h4>
+                    <p><span class="ar-text">مهارات متقدمة في التفاوض والإقناع والتعامل مع كبار العملاء، بجانب التميز الابتكاري والتجاري في مجال تصميم العطور.</span><span class="en-text">Advanced negotiation and high-end client relationship management, coupled with creative and commercial excellence in custom fragrance composition.</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="certs" class="content-section">
+            <div class="certs-grid">
+                <div class="cert-card" style="border-right: 4px solid #0284c7;">
+                    <h4><span class="ar-text">المؤهل التعليمي العام</span><span class="en-text">General Educational Degree</span></h4>
+                    <p><span class="ar-text">شهادة الثانوية العامة</span><span class="en-text">High School Certificate</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4>Microsoft Power BI</h4>
+                    <p><span class="ar-text">شهادة - جامعة الملك عبدالعزيز</span><span class="en-text">Certificate - King Abdulaziz University</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">مبادئ الذكاء الاصطناعي</span><span class="en-text">Principles of Artificial Intelligence</span></h4>
+                    <p><span class="ar-text">شهادة اجتياز - الهيئة السعودية للبيانات والذكاء الاصطناعي (سدايا)</span><span class="en-text">Completion Certificate - SDAIA</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">عناصر الذكاء الاصطناعي للأعمال</span><span class="en-text">Elements of AI for Business</span></h4>
+                    <p><span class="ar-text">شهادة - جامعة هلسنكي</span><span class="en-text">Certificate - University of Helsinki</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">تصميم الجرافيك والوثائق</span><span class="en-text">Graphic Design Freelance License</span></h4>
+                    <p><span class="ar-text">وثيقة العمل الحر - وزارة الموارد البشرية والتنمية الاجتماعية</span><span class="en-text">Freelance Document - Ministry of Human Resources</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">أساسيات الإدارة الحديثة</span><span class="en-text">Management Essentials</span></h4>
+                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - Human Resources Development Fund (HRDF)</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">تأسيس المشاريع الاستثمارية</span><span class="en-text">Define Your Project Idea</span></h4>
+                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - National Entrepreneurship Institute (RIYADAH)</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">مقدمة في إدارة المشاريع الاحترافية (PMP)</span><span class="en-text">Introduction to Project Management (PMP)</span></h4>
+                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - Human Resources Development Fund (HRDF)</span></p>
+                </div>
+                <div class="cert-card">
+                    <h4><span class="ar-text">تحفيز القيادة والذات</span><span class="en-text">Self Motivation</span></h4>
+                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - National Entrepreneurship Institute (RIYADAH)</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSection(evt, sectionName) {
+            const sections = document.getElementsByClassName("content-section");
+            for (let i = 0; i < sections.length; i++) { sections[i].classList.remove("active"); }
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) { tabButtons[i].classList.remove("active"); }
+            document.getElementById(sectionName).classList.add("active");
+            if (evt) evt.currentTarget.classList.add("active");
+        }
+
+        function toggleLanguage() {
+            var htmlTag = document.getElementsByTagName("html")[0];
+            var btn = document.querySelector(".lang-btn");
+            if (htmlTag.getAttribute("dir") === "rtl") {
+                htmlTag.setAttribute("dir", "ltr");
+                htmlTag.setAttribute("lang", "en");
+                btn.innerText = "العربية";
+            } else {
+                htmlTag.setAttribute("dir", "rtl");
+                htmlTag.setAttribute("lang", "ar");
+                btn.innerText = "English";
+            }
+        }
+    </script>
+</body>
+</html>
