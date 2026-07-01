@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -129,21 +129,31 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .card { background-color: #ffffff; border-bottom: 1px solid #f1f5f9; padding: 22px 0; margin-bottom: 10px; }
-        .card h3 { color: #0f172a; font-size: 1.3rem; margin-bottom: 6px; font-weight: 700; }
-        .card .company { font-size: 1.05rem; color: #0284c7; font-weight: 700; margin-bottom: 4px; }
-        .card .date { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; font-weight: 600; }
+        .card h3 { color: #0f172a; font-size: 1.3rem; margin-bottom: 6px; font-weight: 700; text-align: right; }
+        html[dir="ltr"] .card h3 { text-align: left; }
+        .card .company { font-size: 1.05rem; color: #0284c7; font-weight: 700; margin-bottom: 4px; text-align: right; }
+        html[dir="ltr"] .card .company { text-align: left; }
+        .card .date { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; font-weight: 600; text-align: right; }
+        html[dir="ltr"] .card .date { text-align: left; }
+        .card ul { padding-right: 20px; color: #334155; font-size: 0.95rem; line-height: 1.7; text-align: right; }
+        html[dir="ltr"] .card ul { padding-right: 0; padding-left: 20px; text-align: left; }
+        .card ul li { margin-bottom: 6px; }
+        .card p { line-height: 1.8; color: #334155; font-size: 1.05rem; text-align: right; }
+        html[dir="ltr"] .card p { text-align: left; }
 
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; padding-top: 10px; }
-        .skill-card { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px; }
+        .skill-card { background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 8px; text-align: right; }
+        html[dir="ltr"] .skill-card { text-align: left; }
         .skill-card h4 { color: #0f172a; margin-bottom: 6px; font-size: 1.05rem; font-weight: 700; }
         .skill-card p { color: #475569; font-size: 0.88rem; line-height: 1.5; }
 
         .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; padding-top: 10px; }
-        .cert-card { background-color: #ffffff; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 8px; }
+        .cert-card { background-color: #ffffff; border: 1px solid #e2e8f0; padding: 14px 16px; border-radius: 8px; text-align: right; }
+        html[dir="ltr"] .cert-card { text-align: left; }
         .cert-card h4 { color: #222d3d; font-size: 0.92rem; margin-bottom: 3px; font-weight: 700; }
         .cert-card p { color: #64748b; font-size: 0.82rem; font-weight: 600; }
 
-        .en-text { display: none; }
+        .en-text { display: none; text-align: left; }
         html[dir="rtl"] .ar-text { display: inline; }
         html[dir="ltr"] .ar-text { display: none; }
         html[dir="ltr"] .en-text { display: inline; }
@@ -161,7 +171,7 @@
 <body>
     <div class="cv-container">
         <div class="lang-switch-container">
-            <button class="lang-btn" onclick="toggleLanguage()">English</button>
+            <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">English</button>
         </div>
 
         <header>
@@ -178,10 +188,10 @@
                 <a href="tel:0533743380" class="action-link btn-call">
                     <span>📞</span> <span class="ar-text">إتصال هاتفي</span><span class="en-text">Call Now</span>
                 </a>
-                <a href="whatsapp://send?phone=966533743380" class="action-link btn-whatsapp">
+                <a href="https://wa.me" class="action-link btn-whatsapp" target="_blank">
                     <span>💬</span> <span class="ar-text">واتساب مباشر</span><span class="en-text">WhatsApp</span>
                 </a>
-                <a href="mailto:LIOQIO10@://gmail.com" class="action-link btn-email">
+                <a href="mailto:lioqio10@gmail.com" class="action-link btn-email">
                     <span>📧</span> <span class="ar-text">البريد الإلكتروني</span><span class="en-text">Email</span>
                 </a>
             </div>
@@ -192,7 +202,7 @@
                 <span class="ar-text">الملخص التنفيذي</span><span class="en-text">Executive Summary</span>
             </button>
             <button class="tab-btn" onclick="openSection(event, 'experience')">
-                <span class="ar-text"> الخبرات والمنجزات</span><span class="en-text">Experience</span>
+                <span class="ar-text">الخبرات والمنجزات</span><span class="en-text">Experience</span>
             </button>
             <button class="tab-btn" onclick="openSection(event, 'skills')">
                 <span class="ar-text">المنظومة والمهارات</span><span class="en-text">Skills</span>
@@ -202,26 +212,25 @@
             </button>
         </nav>
 
+        <!-- قسم الملخص التنفيذي -->
         <div id="about" class="content-section active">
             <div class="card" style="border: none;">
-                <p style="line-height: 1.8; color: #334155; font-size: 1.05rem; text-align: right;">
-                    <span class="ar-text">مدير ومستشار موارد بشرية يجمع بين الفكر الاستراتيجي في بناء الأنظمة والشركات من الصفر، والتمكن الميداني الكامل من إدارة العمليات التشغيلية واليومية. أمتلك خبرة واسعة في القيادة التنفيذية، إدارة وتوجيه الموظفين، هيكلة الأجور ومسيرات الرواتب، وجدولة الإجازات، مع تحقيق أتمتة رقمية كاملة والامتثال التام للأنظمة السعودية بنسبة 100%.</span>
-                    <span class="en-text" style="text-align: left;">An HR Director and Consultant who blends strategic vision in building administrative systems and companies from scratch with full field mastery of daily operational management. Possess extensive experience in executive leadership, employee guidance, payroll structures, and leave scheduling, achieving total digital automation and 100% full compliance with Saudi regulations.</span>
-                </p>
+                <p class="ar-text">مدير ومستشار موارد بشرية يجمع بين الفكر الاستراتيجي في بناء الأنظمة والشركات من الصفر، والتمكن الميداني الكامل من إدارة العمليات التشغيلية واليومية. أمتلك خبرة واسعة في القيادة التنفيذية، إدارة وتوجيه الموظفين، هيكلة الأجور ومسيرات الرواتب، وجدولة الإجازات، مع تحقيق أتمتة رقمية كاملة والامتثال التام للأنظمة السعودية بنسبة 100%.</p>
+                <p class="en-text">An Executive Director and HR Consultant merging strategic intellect in building systems and companies from scratch with complete field mastery of daily operational processes. Deep experience in executive leadership, employee direction, payroll structuring, and vacation scheduling, achieving comprehensive digital automation and 100% compliance with Saudi regulations.</p>
             </div>
         </div>
+
+        <!-- قسم الخبرات والمنجزات -->
         <div id="experience" class="content-section">
             <div class="card">
                 <h3>
                     <span class="ar-text">مؤسس ومستشار موارد بشرية وتطوير تشغيلي</span>
-                    <span class="en-text">Founder & HR Consultant | Operations Development</span>
+                    <span class="en-text">Founder & HR Operational Consultant</span>
                 </h3>
                 <div class="company"><span class="ar-text">شركة إثراء العقارية</span><span class="en-text">Ithra Real Estate Company</span></div>
                 <div class="date"><span class="ar-text">يونيو 2025 – حتى الآن</span><span class="en-text">June 2025 – Present</span></div>
-                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
-                    <span class="ar-text">تأسيس إدارة الموارد البشرية من الصفر وتصميم دورتها المستندية وهياكلها التنظيمية لملائمة قطاع العقار. لا يقتصر دوري على التأسيس بل يتعداه للتشغيل اليومي؛ حيث أدير شؤون الموظفين بشكل مباشر، وأشرف على معالجة مسيرات الرواتب، وجدولة ومتابعة الإجازات، وحل المعضلات العمالية، مع ربط المنشأة تقنياً بالمنصات الحكومية لضمان تدفق العمل بسلاسة ونظام.</span>
-                    <span class="en-text">Established the HR department from scratch, designing its documentation workflow and organizational structures tailored to the real estate sector. Role extends beyond setup to daily operations: directly managing personnel affairs, overseeing payroll processing, scheduling leaves, and resolving labor issues while digitally integrating the entity with government platforms to ensure smooth and institutional workflows from day one.</span>
-                </p>
+                <p class="ar-text">تأسيس إدارة الموارد البشرية من الصفر وتصميم دورتها المستندية وهياكلها التنظيمية لملائمة قطاع العقار. لا يقتصر دوري على التأسيس بل يتعداه للتشغيل اليومي؛ حيث أدير شؤون الموظفين بشكل مباشر، وأشرف على معالجة مسيرات الرواتب، وجدولة ومتابعة الإجازات، وحل المعضلات العمالية، مع ربط المنشأة تقنياً بالمنصات الحكومية لضمان تدفق العمل بسلاسة ونظام.</p>
+                <p class="en-text">Established the HR department from scratch, designing documentary workflows and organizational structures tailored to the real estate sector. Role extends beyond establishment to daily execution: directly managing employee relations, overseeing payroll processing, scheduling/tracking vacations, resolving labor issues, and linking the facility with government platforms for seamless operations.</p>
             </div>
 
             <div class="card">
@@ -231,10 +240,8 @@
                 </h3>
                 <div class="company"><span class="ar-text">شركة دنالي للتجارة</span><span class="en-text">Denali Trading Company</span></div>
                 <div class="date"><span class="ar-text">نوفمبر 2021 – حتى الآن</span><span class="en-text">November 2021 – Present</span></div>
-                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
-                    <span class="ar-text">تولي القيادة التنفيذية والتشغيلية الشاملة وبناء قاعدة بيانات المنشأة وأنظمتها من الصفر. إدارة كافة العمليات التشغيلية اليومية للموظفين، وتطوير البنية التحتية لحسابات الرواتب والأجور ونظام الإجازات وحضور وانصراف الكادر. <strong>النجاح الكبير في قيادة ملف التوطين الذكي؛ حيث تم تعديل النسب بذكاء لرفع كفاءة التوظيف من موظف سعودي مقابل كل 5 مقيمين إلى موظف سعودي مقابل كل 13 مقيماً، مما وفر ميزانيات ضخمة جداً للمنشأة</strong>، مع المسؤولية الكاملة عن استخراج التراخيص الصناعية وتراخيص هيئة النقل.</span>
-                    <span class="en-text">Assumed total executive and operational leadership, building the corporate database and administrative systems from scratch. Managed all daily employee operational workflows, and developed the infrastructure for payroll processing and leave tracking. <strong>Highly successful in leading the smart Saudization file, restructuring ratios to improve efficiency from 1 Saudi per 5 expats to 1 Saudi per 13 expats, saving massive corporate budgets</strong>, alongside managing industrial and transport authority licenses.</span>
-                </p>
+                <p class="ar-text">تولي القيادة التنفيذية والتشغيلية الشاملة وبناء قاعدة بيانات المنشأة وأنظمتها من الصفر. إدارة كافة العمليات التشغيلية اليومية للموظفين، وتطوير البنية التحتية لحسابات الرواتب والأجور ونظام الإجازات وحضور وانصراف الكادر. النجاح الكبير في قيادة ملف التوطين الذكي؛ حيث تم تعديل النسب بذكاء لرفع كفاءة التوظيف من موظف سعودي مقابل كل 5 مقيمين إلى موظف سعودي مقابل كل 13 مقيماً، مما وفر ميزانيات ضخمة جداً للمنشأة، مع المسؤولية الكاملة عن استخراج التراخيص الصناعية وتراخيص هيئة النقل.</p>
+                <p class="en-text">Assumed comprehensive executive and operational leadership, building enterprise databases and systems from the ground up. Managed all daily staff operations and developed the infrastructure for payroll, wages, vacation systems, and time attendance. Led the smart Saudization portfolio, successfully adjusting ratios to boost recruitment efficiency from 1 Saudi per 5 expats to 1 Saudi per 13 expats, saving massive budgets, with full accountability for securing industrial and Transport General Authority (TGA) licenses.</p>
             </div>
 
             <div class="card">
@@ -243,11 +250,9 @@
                     <span class="en-text">Sales Specialist</span>
                 </h3>
                 <div class="company"><span class="ar-text">شركة الغزالي للساعات</span><span class="en-text">Al-Ghazali Watches Company</span></div>
-                <div class="date"><span class="ar-text">يناير 2021 – سبتمبر 2023</span><span class="en-text">January 2021 – September 2023</span></div>
-                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
-                    <span class="ar-text">صقل مهارات فهم وتحليل متطلبات العملاء والعمل كمستشار مبيعات للمنتجات والماركات الفاخرة، وتطوير أساليب إقناع واحترافية أسهمت في بناء ورفع موثوقية وولاء العميل.</span>
-                    <span class="en-text">Honed skills in understanding and analyzing luxury consumer requirements. Acted as a sales consultant for high-end brands, developing professional persuasion techniques that built deep customer trust and brand loyalty.</span>
-                </p>
+                <div class="date"><span class="ar-text">يناير 2021 – سبتمبر 2021</span><span class="en-text">January 2021 – September 2021</span></div>
+                <p class="ar-text">صقل مهارات فهم وتحليل متطلبات العملاء والعمل كمستشار مبيعات للمنتجات والماركات الفاخرة، وتطوير أساليب إقناع واحترافية أسهمت في بناء ورفع موثوقية وولاء العميل.</p>
+                <p class="en-text">Honed skills in understanding and analyzing customer requirements, working as a sales consultant for luxury brands. Developed persuasive and professional techniques that contributed to building and elevating customer trust and loyalty.</p>
             </div>
 
             <div class="card">
@@ -257,106 +262,167 @@
                 </h3>
                 <div class="company"><span class="ar-text">الشويش للعود</span><span class="en-text">Al-Shuwaysh for Oud</span></div>
                 <div class="date"><span class="ar-text">مارس 2018 – نوفمبر 2021</span><span class="en-text">March 2018 – November 2021</span></div>
-                <p style="color: #475569; line-height: 1.7; font-size: 0.95rem;">
-                    <span class="ar-text">تولي الإدارة الشاملة للفرع والمسؤولية الكاملة عن العمليات البيعية والتشغيلية والميدانية. تطوير الشغف والخبرة في تركيب وتصميم العطور الخاصة، وتمثيل العلامة التجارية في المعارض المحلية والدولية الكبرى، وبناء شبكة علاقات قوية مع العملاء.</span>
-                    <span class="en-text">Managed full branch operations and sales performance. Deepened expertise in custom perfume design and oil blending, represented the brand in major local and international exhibitions, and established a strong premium client network.</span>
-                </p>
+                <p class="ar-text">تولي الإدارة الشاملة للفرع والمسؤولية الكاملة عن العمليات البيعية والتشغيلية والميدانية. تطوير الشغف والخبرة في تركيب وتصميم العطور الخاصة، وتمثيل العلامة التجارية في المعارض المحلية والدولية الكبرى، وبناء شبكة علاقات قوية مع العملاء.</p>
+                <p class="en-text">Assumed full management of the branch, with complete accountability for sales, operational, and field processes. Developed a passion and expertise in compounding and designing custom perfumes, representing the brand at major local and international exhibitions, and building a robust client network.</p>
             </div>
         </div>
+        <!-- قسم المنظومة والمهارات -->
         <div id="skills" class="content-section">
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h4><span class="ar-text">القيادة والتأسيس الهيكلي</span><span class="en-text">Leadership & Setup</span></h4>
-                    <p><span class="ar-text">تأسيس إدارات الموارد البشرية من الصفر، رسم الهياكل التنظيمية، والتخطيط الاستراتيجي للمنشآت.</span><span class="en-text">Establishing HR departments from scratch, organizational charting, and corporate strategic planning.</span></p>
+                    <h4>
+                        <span class="ar-text">القيادة والتأسيس الهيكلي</span>
+                        <span class="en-text">Leadership & Structural Setup</span>
+                    </h4>
+                    <p class="ar-text">تأسيس إدارات الموارد البشرية من الصفر، رسم الهياكل التنظيمية، والتخطيط الاستراتيجي للمنشآت.</p>
+                    <p class="en-text">Establishing HR departments from scratch, designing organizational charts, and strategic business planning.</p>
                 </div>
+
                 <div class="skill-card">
-                    <h4><span class="ar-text">إدارة العمليات والتشغيل (HR Ops)</span><span class="en-text">HR Operations Management</span></h4>
-                    <p><span class="ar-text">إدارة شؤون الموظفين اليومية، معالجة وهيكلة مسيرات الرواتب والأجور، تنظيم الإجازات والدوام والتقارير.</span><span class="en-text">Daily personnel affairs, structuring payroll processes, managing leaves, attendance, and periodic reporting.</span></p>
+                    <h4>
+                        <span class="ar-text">إدارة العمليات والتشغيل (HR Ops)</span>
+                        <span class="en-text">Operations Management (HR Ops)</span>
+                    </h4>
+                    <p class="ar-text">إدارة شؤون الموظفين اليومية، معالجة وهيكلة مسيرات الرواتب والأجور، تنظيم الإجازات والدوام والتقارير.</p>
+                    <p class="en-text">Managing daily employee affairs, structuring and processing payrolls, organizing vacations, attendance, and reporting.</p>
                 </div>
+
                 <div class="skill-card">
-                    <h4><span class="ar-text">هندسة التوطين والامتثال</span><span class="en-text">Saudization & Compliance</span></h4>
-                    <p><span class="ar-text">خبير في رفع نسب التوطين (نطاقات) بفعالية وتقليص تكاليف الاستقدام والتأمينات بما يطابق نظام العمل السعودي 100%.</span><span class="en-text">Expert in effectively optimizing Saudization ratios (Nitaqat) and cutting recruitment/insurance costs aligned 100% with Saudi labor laws.</span></p>
+                    <h4>
+                        <span class="ar-text">هندسة التوطين والامتثال</span>
+                        <span class="en-text">Saudization Engineering & Compliance</span>
+                    </h4>
+                    <p class="ar-text">خبير في رفع نسب التوطين (نطاقات) بفعالية وتقليص تكاليف الاستقدام والتأمينات بما يطابق نظام العمل السعودي 100%.</p>
+                    <p class="en-text">Expert in effectively boosting Saudization ratios (Nitaqat), minimizing recruitment and GOSI costs in 100% compliance with Saudi Labor Law.</p>
                 </div>
+
                 <div class="skill-card">
-                    <h4><span class="ar-text">التحول والربط الرقمي الحكومي</span><span class="en-text">Digital Government Portals</span></h4>
-                    <p><span class="ar-text">تمكن احترافي ممتد لكافة الأنظمة والمنصات (قوى، مدد، أبشر أعمال، هيئة النقل، التراخيص الصناعية) وأتمتة الإجراءات.</span><span class="en-text">Professional mastery of all core platforms (Qiwa, Mudad, Absher Business, TGA, Industrial Licensing) and workflow automation.</span></p>
+                    <h4>
+                        <span class="ar-text">التحول والربط الرقمي الحكومي</span>
+                        <span class="en-text">Digital Transformation & Gov Integration</span>
+                    </h4>
+                    <p class="ar-text">تمكن احترافي ممتد لكافة الأنظمة والمنصات (قوى، مدد، أبشر أعمال، هيئة النقل، التراخيص الصناعية) وأتمتة الإجراءات.</p>
+                    <p class="en-text">Advanced mastery of government platforms (Qiwa, Mudad, Absher Business, TGA, Industrial Licenses) and process automation.</p>
                 </div>
+
                 <div class="skill-card">
-                    <h4><span class="ar-text">التميز الإداري وصياغة السياسات</span><span class="en-text">Policy Formulation & Admin Excellence</span></h4>
-                    <p><span class="ar-text">صياغة اللوائح الداخلية والخطابات الرسمية الحساسة وتصميم النماذج الإدارية المتكاملة بدقة مستندية عالية.</span><span class="en-text">Drafting internal regulations, high-stakes official correspondence, and creating integrated administrative templates.</span></p>
+                    <h4>
+                        <span class="ar-text">التميز الإداري وصياغة السياسات</span>
+                        <span class="en-text">Admin Excellence & Policy Formulation</span>
+                    </h4>
+                    <p class="ar-text">صياغة اللوائح الداخلية والخطابات الرسمية الحساسة وتصميم النماذج الإدارية المتكاملة بدقة مستندية عالية.</p>
+                    <p class="en-text">Drafting internal regulations, critical official correspondence, and designing integrated administrative models with high documentary precision.</p>
                 </div>
+
                 <div class="skill-card">
-                    <h4><span class="ar-text">المبيعات وإدارة النخبة والعطور</span><span class="en-text">Premium Sales & Perfume Design</span></h4>
-                    <p><span class="ar-text">مهارات متقدمة في التفاوض والإقناع والتعامل مع كبار العملاء، بجانب التميز الابتكاري والتجاري في مجال تصميم العطور.</span><span class="en-text">Advanced negotiation and high-end client relationship management, coupled with creative and commercial excellence in custom fragrance composition.</span></p>
+                    <h4>
+                        <span class="ar-text">المبيعات وإدارة النخبة والعطور</span>
+                        <span class="en-text">Sales, Luxury Management & Perfumes</span>
+                    </h4>
+                    <p class="ar-text">مهارات متقدمة في التفاوض والإقناع والتعامل مع كبار العملاء، بجانب التميز الابتكاري والتجاري في مجال تصميم العطور.</p>
+                    <p class="en-text">Advanced negotiation and persuasion skills for VIP client management, coupled with creative and commercial excellence in custom perfume design.</p>
                 </div>
             </div>
         </div>
 
+        <!-- قسم التطوير المهني والتعليم -->
         <div id="certs" class="content-section">
             <div class="certs-grid">
-                <div class="cert-card" style="border-right: 4px solid #0284c7;">
-                    <h4><span class="ar-text">المؤهل التعليمي العام</span><span class="en-text">General Educational Degree</span></h4>
-                    <p><span class="ar-text">شهادة الثانوية العامة</span><span class="en-text">High School Certificate</span></p>
+                <!-- الدبلوم المهني الجديد يتصدر قائمة التعليم بالكامل بشكل متميز وعريض -->
+                <div class="cert-card" style="grid-column: 1 / -1; border-right: 5px solid #0284c7; background-color: #f0f9ff;">
+                    <h4 style="font-size: 1.15rem; color: #0f172a; margin-bottom: 5px;">
+                        <span class="ar-text">الدبلوم المتوسط المهني في إدارة وتنظيم الموارد البشرية</span>
+                        <span class="en-text">Intermediate Professional Diploma in HR Management & Organization</span>
+                    </h4>
+                    <p style="font-weight: 700; color: #0284c7; margin-bottom: 4px;">
+                        <span class="ar-text">جامعة الملك فيصل | الكلية التطبيقية (قيد الدراسة)</span>
+                        <span class="en-text">King Faisal University | Applied College (In Progress)</span>
+                    </p>
+                    <p style="font-size: 0.85rem; color: #64748b;">
+                        <span class="ar-text">تطوير أكاديمي مستمر لتأصيل رأس المال البشري وربطه بالخبرة الميدانية الشاملة.</span>
+                        <span class="en-text">Continuous academic development to structure human capital and integrate it with comprehensive field operations.</span>
+                    </p>
                 </div>
+
                 <div class="cert-card">
                     <h4>Microsoft Power BI</h4>
                     <p><span class="ar-text">شهادة - جامعة الملك عبدالعزيز</span><span class="en-text">Certificate - King Abdulaziz University</span></p>
                 </div>
+
                 <div class="cert-card">
                     <h4><span class="ar-text">مبادئ الذكاء الاصطناعي</span><span class="en-text">Principles of Artificial Intelligence</span></h4>
-                    <p><span class="ar-text">شهادة اجتياز - الهيئة السعودية للبيانات والذكاء الاصطناعي (سدايا)</span><span class="en-text">Completion Certificate - SDAIA</span></p>
+                    <p><span class="ar-text">شهادة اجتياز - الهيئة السعودية للبيانات والذكاء الاصطناعي (سدايا)</span><span class="en-text">Passing Certificate - SDAIA</span></p>
                 </div>
+
                 <div class="cert-card">
                     <h4><span class="ar-text">عناصر الذكاء الاصطناعي للأعمال</span><span class="en-text">Elements of AI for Business</span></h4>
                     <p><span class="ar-text">شهادة - جامعة هلسنكي</span><span class="en-text">Certificate - University of Helsinki</span></p>
                 </div>
+
                 <div class="cert-card">
-                    <h4><span class="ar-text">تصميم الجرافيك والوثائق</span><span class="en-text">Graphic Design Freelance License</span></h4>
+                    <h4><span class="ar-text">تصميم الجرافيك والوثائق</span><span class="en-text">Graphic & Document Design</span></h4>
                     <p><span class="ar-text">وثيقة العمل الحر - وزارة الموارد البشرية والتنمية الاجتماعية</span><span class="en-text">Freelance Document - Ministry of Human Resources</span></p>
                 </div>
+
                 <div class="cert-card">
-                    <h4><span class="ar-text">أساسيات الإدارة الحديثة</span><span class="en-text">Management Essentials</span></h4>
-                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - Human Resources Development Fund (HRDF)</span></p>
+                    <h4><span class="ar-text">أساسيات الإدارة الحديثة</span><span class="en-text">Fundamentals of Modern Management</span></h4>
+                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - HRDF (Hadaf)</span></p>
                 </div>
+
                 <div class="cert-card">
-                    <h4><span class="ar-text">تأسيس المشاريع الاستثمارية</span><span class="en-text">Define Your Project Idea</span></h4>
-                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - National Entrepreneurship Institute (RIYADAH)</span></p>
+                    <h4><span class="ar-text">تأسيس المشاريع الاستثمارية</span><span class="en-text">Establishing Investment Projects</span></h4>
+                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - RIYADAH Institute</span></p>
                 </div>
+
                 <div class="cert-card">
-                    <h4><span class="ar-text">مقدمة في إدارة المشاريع الاحترافية (PMP)</span><span class="en-text">Introduction to Project Management (PMP)</span></h4>
-                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - Human Resources Development Fund (HRDF)</span></p>
+                    <h4><span class="ar-text">مقدمة في إدارة المشاريع الاحترافية (PMP)</span><span class="en-text">Introduction to Project Management Professional (PMP)</span></h4>
+                    <p><span class="ar-text">شهادة - صندوق تنمية الموارد البشرية (هدف)</span><span class="en-text">Certificate - HRDF (Hadaf)</span></p>
                 </div>
+
                 <div class="cert-card">
-                    <h4><span class="ar-text">تحفيز القيادة والذات</span><span class="en-text">Self Motivation</span></h4>
-                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - National Entrepreneurship Institute (RIYADAH)</span></p>
+                    <h4><span class="ar-text">تحفيز القيادة والذات</span><span class="en-text">Leadership & Self-Motivation</span></h4>
+                    <p><span class="ar-text">شهادة - معهد ريادة الأعمال الوطني (ريادة)</span><span class="en-text">Certificate - RIYADAH Institute</span></p>
+                </div>
+
+                <div class="cert-card">
+                    <h4><span class="ar-text">المؤهل التعليمي العام</span><span class="en-text">General Educational Qualification</span></h4>
+                    <p><span class="ar-text">شهادة الثانوية العامة</span><span class="en-text">High School Certificate</span></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- المحرك البرمجي لإدارة اللغات والتبويبات والاتصال -->
     <script>
         function openSection(evt, sectionName) {
-            const sections = document.getElementsByClassName("content-section");
-            for (let i = 0; i < sections.length; i++) { sections[i].classList.remove("active"); }
-            const tabButtons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabButtons.length; i++) { tabButtons[i].classList.remove("active"); }
-            document.getElementById(sectionName).classList.add("active");
-            if (evt) evt.currentTarget.classList.add("active");
+            var i, contentSections, tabButtons;
+            contentSections = document.getElementsByClassName("content-section");
+            for (i = 0; i < contentSections.length; i++) {
+                contentSections[i].style.display = "none";
+                contentSections[i].classList.remove("active");
+            }
+            tabButtons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            var targetSection = document.getElementById(sectionName);
+            targetSection.style.display = "block";
+            setTimeout(function() { targetSection.classList.add("active"); }, 10);
+            evt.currentTarget.classList.add("active");
         }
 
         function toggleLanguage() {
-            var htmlTag = document.getElementsByTagName("html")[0];
-            var btn = document.querySelector(".lang-btn");
+            var htmlTag = document.documentElement;
+            var langBtn = document.getElementById("langBtn");
+            
             if (htmlTag.getAttribute("dir") === "rtl") {
                 htmlTag.setAttribute("dir", "ltr");
                 htmlTag.setAttribute("lang", "en");
-                btn.innerText = "العربية";
+                langBtn.innerHTML = "العربية";
             } else {
                 htmlTag.setAttribute("dir", "rtl");
                 htmlTag.setAttribute("lang", "ar");
-                btn.innerText = "English";
+                langBtn.innerHTML = "English";
             }
         }
-    </script>
-</body>
-</html>
+
